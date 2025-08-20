@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Editkaro.in — Portfolio</title>
+  <meta name="description" content="Editkaro.in — Social media marketing & video editing portfolio: short-form, long-form, gaming, football, eCommerce ads, documentary style, color grading, anime, and ads." />
+  <meta property="og:title" content="Editkaro.in — Portfolio" />
+  <meta property="og:description" content="A dynamic, filterable showcase of Editkaro.in’s video work." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0E0E10" />
+  <style>
+    :root{
+      --bg:#0E0E10;
+      --surface:#141417;
+      --card:#18181B;
+      --text:#F5F5F7;
+      --muted:#A1A1AA;
+      --brand:#FFC83A;
+      --accent:#7C3AED;
+      --ok:#10B981;
+      --danger:#EF4444;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --ring:0 0 0 2px rgba(255,200,58,.3);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(1200px 600px at 70% -10%, rgba(124,58,237,.25), transparent 60%), var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1200px, 92%);margin-inline:auto}
+    .nav{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(14,14,16,.85), rgba(14,14,16,.65));backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.3px}
+    .logo-mark{width:30px;height:30px;border-radius:8px;background:conic-gradient(from 220deg, var(--brand), #FF6B00 36%, #7C3AED 72%, var(--brand));box-shadow:0 6px 18px rgba(255,200,58,.35)}
+    .pill{padding:8px 12px;border-radius:999px;background:#1C1C20;border:1px solid rgba(255,255,255,.06);color:var(--muted);font-size:.9rem}
+    .cta{padding:10px 14px;border-radius:10px;background:linear-gradient(135deg, var(--brand), #FF6B00);color:#1b1200;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(255,200,58,.35)}
+    .cta:hover{transform:translateY(-1px)}
+    .cta:focus-visible{outline:none;box-shadow:var(--ring)}
+    .hero{display:grid;gap:22px;grid-template-columns:1.1fr .9fr;align-items:center;padding:48px 0}
+    .hero h1{font-size:clamp(28px, 3.6vw, 54px);line-height:1.05;margin:0}
+    .sub{color:var(--muted);font-size:clamp(15px, 1.6vw, 18px)}
+    .statbar{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+    .stat{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:10px 12px;border-radius:12px}
+    .hero-card{aspect-ratio:16/9;background:linear-gradient(135deg, rgba(255,200,58,.25), rgba(124,58,237,.22));border:1px solid rgba(255,255,255,.12);border-radius:16px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .hero-card video{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.02)}
+    .glow{position:absolute;inset:auto -40% -60% -40%;height:80%;background:radial-gradient(50% 50% at 50% 50%, rgba(255,200,58,.18), transparent 60%)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:6px 0 20px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{padding:8px 12px;border-radius:999px;background:#1A1A1E;border:1px solid rgba(255,255,255,.08);color:#D4D4D8;cursor:pointer;font-weight:600;font-size:.92rem;transition:.15s}
+    .chip:hover{border-color:rgba(255,255,255,.18)}
+    .chip.active{background:linear-gradient(135deg, rgba(255,200,58,.18), rgba(124,58,237,.18));border-color:rgba(255,200,58,.5);color:#fff}
+    .search{display:flex;align-items:center;gap:8px;background:#1A1A1E;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 12px;width:280px;max-width:100%}
+    .search input{flex:1;background:transparent;border:none;outline:none;color:#fff}
+    .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px}
+    @media (max-width: 1024px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2, 1fr)}}
+    @media (max-width: 640px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;transition:transform .15s, border-color .15s;position:relative}
+    .card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18)}
+    .thumb{position:relative;aspect-ratio:16/9;background:#0f0f13;overflow:hidden}
+    .thumb img,.thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .2s}
+    .badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);backdrop-filter: blur(6px);padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font-size:.82rem}
+    .play{position:absolute;inset:auto 10px 10px auto;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg, var(--brand), #FF6B00);color:#1b1200;padding:8px 12px;border-radius:12px;font-weight:800;box-shadow:0 6px 16px rgba(255,200,58,.35)}
+    .meta{padding:12px}
+    .title{font-weight:800;margin:0 0 6px;font-size:1rem}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+    .tag{font-size:.78rem;color:#C9C9CF;background:#1E1E22;border:1px solid rgba(255,255,255,.06);padding:4px 8px;border-radius:999px}
+    .empty{padding:40px;text-align:center;color:var(--muted);border:1px dashed rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.02)}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter: blur(6px);display:none;align-items:center;justify-content:center;z-index:100}
+    .lightbox.open{display:flex}
+    .lb-inner{width:min(1100px, 92%);background:var(--surface);border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+    .lb-media{position:relative;background:#000;aspect-ratio:16/9}
+    .lb-media iframe,.lb-media video{width:100%;height:100%}
+    .lb-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-top:1px solid rgba(255,255,255,.08)}
+    .lb-actions{display:flex;gap:8px}
+    .icon-btn{background:#1E1E22;border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+    .icon-btn:hover{border-color:rgba(255,255,255,.24)}
+    .close{background:transparent;border:none;color:#fff;font-size:24px;cursor:pointer;padding:8px}
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .5s ease}
+    .reveal.in{opacity:1;transform:none}
+    .chip:focus-visible,.icon-btn:focus-visible,.card:focus-within,.close:focus-visible{outline:none;box-shadow:var(--ring)}
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Primary">
+    <div class="container nav-wrap">
+      <div class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>Editkaro<span style="color:var(--brand)">.in</span></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="pill">Social • Editing • Ads</span>
+        <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a cut</button>
+      </div>
+    </div>
+  </nav>
+  <header class="container hero">
+    <div>
+      <h1>Cut faster. Sell louder. A portfolio of edits built to convert.</h1>
+      <p class="sub">From thumb-stopping shorts to cinematic long-form, this reel shows how we keep watchtime high and ROAS higher.</p>
+      <div class="statbar">
+        <div class="stat"><span aria-hidden="true">⚡</span><span><strong>Fast turnarounds</strong> under 24–72h</span></div>
+        <div class="stat"><span aria-hidden="true">🎯</span><span><strong>Platform-native</strong> for Reels, Shorts, TikTok</span></div>
+        <div class="stat"><span aria-hidden="true">🎬</span><span><strong>End-to-end</strong> cut, grade, sound, captions</span></div>
+      </div>
+    </div>
+    <div class="hero-card reveal" aria-label="Showreel preview">
+      <video src="https://samplelib.com/lib/preview/mp4/sample-5s.mp4" autoplay muted loop playsinline></video>
+      <div class="glow" aria-hidden="true"></div>
+    </div>
+  </header>
+  <section class="container" aria-label="Work filters">
+    <div class="toolbar">
+      <div class="chips" id="chips" role="tablist" aria-label="Categories"></div>
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.2-4.2M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#A1A1AA" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" type="search" placeholder="Search titles or tags…" aria-label="Search portfolio" />
+      </label>
+    </div>
+    <div id="grid" class="grid" aria-live="polite"></div>
+    <div id="empty" class="empty" hidden>No results. Try another category or clear your search.</div>
+  </section>
+  <section id="contact" class="container" style="padding:40px 0 80px">
+    <div style="display:grid;gap:16px;grid-template-columns:1fr .9fr;align-items:center">
+      <div>
+        <h2 style="margin:0 0 8px">Have raw footage? We'll turn it into retention.</h2>
+        <p class="sub">Send your brief, drive link, and deadlines. We’ll suggest hooks, pacing, captions, and grades tailored to your audience.</p>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Thanks! We will reach out.');" style="display:grid;gap:10px;background:var(--surface);border:1px solid rgba(255,255,255,.08);padding:14px;border-radius:14px">
+        <input required placeholder="Your email" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#1A1A1E;color:#fff" />
+        <input placeholder="Link to assets (Drive/Dropbox)" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#1A1A1E;color:#fff" />
+        <textarea placeholder="Brief (platform, length, vibe)" rows="3" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#1A1A1E;color:#fff"></textarea>
+        <button class="cta" type="submit">Get a quote</button>
+      </form>
+    </div>
+  </section>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="lb-inner">
+      <div class="lb-media" id="lbMedia"></div>
+      <div class="lb-head">
+        <div id="lbTitle" style="font-weight:800"></div>
+        <div class="lb-actions">
+          <button class="icon-btn" id="prevBtn" aria-label="Previous">⟵ Prev</button>
+          <button class="icon-btn" id="nextBtn" aria-label="Next">Next ⟶</button>
+          <button class="close" id="closeBtn" aria-label="Close">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const CATEGORIES = [
+      "All",
+      "Short-form",
+      "Long-form",
+      "Gaming",
+      "Football",
+      "eCommerce Ads",
+      "Documentary",
+      "Color Grading",
+      "Anime",
+      "Ads"
+    ];
+    const VIDEOS = [
+      {
+        title: "High-retention hooks for D2C brand",
+        category: "Short-form",
+        duration: "0:30",
+        poster: "https://images.unsplash.com/photo-1520975954732-35dd222996f0?q=80&w=1000&auto=format&fit=crop",
+        previewMp4: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+        type: "mp4",
+        src: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+        tags: ["Reels","UGC","Captions","Hook"]
+      },
+      {
+        title: "Founder story — cinematic cut",
+        category: "Long-form",
+        duration: "6:12",
+        poster: "https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1000&auto=format&fit=crop",
+        type: "youtube",
+        videoId: "ysz5S6PUM-U",
+        tags: ["YouTube","Narrative","B-roll","Sound design"]
+      },
+      {
+        title: "eCom ad — thumb-stopping carousel",
+        category: "eCommerce Ads",
+        duration: "0:20",
+        poster: "https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80&w=1000&auto=format&fit=crop",
+        previewMp4: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        type: "mp4",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        tags: ["Paid","CTR","ROAS","UGC"]
+      },
+      {
+        title: "Streamer montage — aim sync",
+        category: "Gaming",
+        duration: "1:30",
+        poster: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop",
+        type: "youtube",
+        videoId: "aqz-KE-bpKQ",
+        tags: ["Montage","SFX","Beats"]
+      },
+      {
+        title: "Matchday hype — quick cuts",
+        category: "Football",
+        duration: "0:45",
+        poster: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=1000&auto=format&fit=crop",
+        previewMp4: "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
+        type: "mp4",
+        src: "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
+        tags: ["Sports","Sync","Transitions"]
+      },
+      {
+        title: "Documentary — street food mini-doc",
+        category: "Documentary",
+        duration: "3:50",
+        poster: "https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1000&auto=format&fit=crop",
+        type: "youtube",
+        videoId: "J---aiyznGQ",
+        tags: ["Story","Interview","Grade"]
+      },
+      {
+        title: "Grade before & after — LUT + custom",
+        category: "Color Grading",
+        duration: "0:25",
+        poster: "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=1000&auto=format&fit=crop",
+        previewMp4: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+        type: "mp4",
+        src: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+        tags: ["LUT","Skin tones","Scopes"]
+      },
+      {
+        title: "Anime AMV — snappy transitions",
+        category: "Anime",
+        duration: "1:05",
+        poster: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=1000&auto=format&fit=crop",
+        type: "youtube",
+        videoId: "N_l1lH4Q0-M",
+        tags: ["AMV","Speed ramp","Sync"]
+      },
+      {
+        title: "UGC ad — creator-led script",
+        category: "Ads",
+        duration: "0:35",
+        poster: "https://images.unsplash.com/photo-1520975889960-b8ea1a0a018e?q=80&w=1000&auto=format&fit=crop",
+        previewMp4: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        type: "mp4",
+        src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+        tags: ["TikTok","Hook","CTA"]
+      }
+    ];
+    let state = {
+      category: "All",
+      query: "",
+      index: 0,
+      filtered: VIDEOS
+    };
+    const chipsEl = document.getElementById('chips');
+    const gridEl = document.getElementById('grid');
+    const emptyEl = document.getElementById('empty');
+    const searchEl = document.getElementById('search');
+    const lb = document.getElementById('lightbox');
+    const lbMedia = document.getElementById('lbMedia');
+    const lbTitle = document.getElementById('lbTitle');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const escapeHtml = (s) => s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+    function renderChips(){
+      chipsEl.innerHTML = "";
+      CATEGORIES.forEach(cat=>{
+        const btn = document.createElement('button');
+        btn.className = 'chip' + (state.category===cat?' active':'');
+        btn.setAttribute('role','tab');
+        btn.setAttribute('aria-selected', state.category===cat ? 'true' : 'false');
+        btn.textContent = cat;
+        btn.addEventListener('click', ()=>{
+          state.category = cat;
+          document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+          btn.classList.add('active');
+          filterAndRender();
+        });
+        chipsEl.appendChild(btn);
+      });
+    }
+    function videoCard(v, iGlobal){
+      const ix = iGlobal;
+      const tags = (v.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('');
+      const preview = v.previewMp4 ? `<video preload="none" muted loop playsinline style="opacity:0" src="${v.previewMp4}"></video>` : '';
+      return `
+        <article class="card reveal" tabindex="0" aria-label="${escapeHtml(v.title)} — ${escapeHtml(v.category)}" data-idx="${ix}">
+          <div class="thumb">
+            <img loading="lazy" alt="${escapeHtml(v.title)} thumbnail" src="${v.poster}">
+            ${preview}
+            <span class="badge">${escapeHtml(v.category)} • ${escapeHtml(v.duration)}</span>
+            <span class="play">▶ Play</span>
+          </div>
+          <div class="meta">
+            <h3 class="title">${escapeHtml(v.title)}</h3>
+            <div class="row">
+              <span style="color:var(--muted);font-size:.9rem">${escapeHtml(v.duration)}</span>
+              <span style="color:var(--muted);font-size:.9rem">${escapeHtml(v.type==='mp4'?'MP4':'YouTube')}</span>
+            </div>
+            <div class="tags">${tags}</div>
+          </div>
+        </article>
+      `;
+    }
+    function filterAndRender(){
+      const q = state.query.trim().toLowerCase();
+      state.filtered = VIDEOS.filter(v=>{
+        const matchCat = state.category === "All" || v.category === state.category;
+        const hay = (v.title + " " + (v.tags||[]).join(" ")).toLowerCase();
+        const matchQ = !q || hay.includes(q);
+        return matchCat && matchQ;
+      });
+      gridEl.innerHTML = state.filtered.map((v,i)=>videoCard(v,i)).join('');
+      emptyEl.hidden = state.filtered.length>0;
+      gridEl.querySelectorAll('.card').forEach(card=>{
+        const idx = +card.dataset.idx;
+        card.addEventListener('click', ()=> openLightbox(idx));
+        card.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(idx); } });
+        const img = card.querySelector('img');
+        const vid = card.querySelector('video');
+        if(vid){
+          card.addEventListener('mouseenter', ()=>{ vid.style.opacity=1; vid.play().catch(()=>{}); img.style.opacity=0; });
+          card.addEventListener('mouseleave', ()=>{ vid.style.opacity=0; vid.pause(); img.style.opacity=1; });
+        }
+      });
+      observer.disconnect();
+      document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    }
+    function openLightbox(idx){
+      state.index = idx;
+      const v = state.filtered[idx];
+      lbTitle.textContent = v.title;
+      lbMedia.innerHTML = '';
+      if(v.type === 'mp4'){
+        const el = document.createElement('video');
+        el.src = v.src;
+        el.controls = true;
+        el.autoplay = true;
+        el.playsInline = true;
+        el.style.width = '100%';
+        lbMedia.appendChild(el);
+      } else if(v.type === 'youtube'){
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${v.videoId}?autoplay=1&rel=0`;
+        iframe.title = v.title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        iframe.frameBorder = "0";
+        lbMedia.appendChild(iframe);
+      }
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function closeLightbox(){
+      lb.classList.remove('open');
+      lbMedia.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+    function nextVideo(step=1){
+      if(!state.filtered.length) return;
+      state.index = (state.index + step + state.filtered.length) % state.filtered.length;
+      openLightbox(state.index);
+    }
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); }
+      });
+    }, { rootMargin:"0px 0px -50px 0px" });
+    searchEl.addEventListener('input', e=>{ state.query = e.target.value; filterAndRender(); });
+    nextBtn.addEventListener('click', ()=> nextVideo(1));
+    prevBtn.addEventListener('click', ()=> nextVideo(-1));
+    closeBtn.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLightbox();
+      if(e.key === 'ArrowRight') nextVideo(1);
+      if(e.key === 'ArrowLeft') nextVideo(-1);
+    });
+    renderChips();
+    filterAndRender();
+  </script>
+</body>
+</html>
+
+
